@@ -3,11 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
-	"html/template"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"text/template"
 
 	sprig "github.com/Masterminds/sprig/v3"
 	"github.com/rs/zerolog/log"
@@ -16,6 +16,7 @@ import (
 )
 
 func main() {
+	var generateFuncs = flag.Bool("generate-funcs", true, "Generate functions to request models")
 	var modelType = flag.String("model-type", "bun", "Model output type: bun, ...")
 	var outputFolder = flag.String("output-folder", "out", "Output folder")
 	var sqlFile = flag.String("sql-file", "example.sql", "SQL file to parse")
@@ -23,6 +24,7 @@ func main() {
 	flag.Parse()
 
 	log.Info().
+		Bool("generate-func", *generateFuncs).
 		Str("model-type", *modelType).
 		Str("output-folder", *outputFolder).
 		Str("sql-file", *sqlFile).
@@ -51,7 +53,7 @@ func main() {
 	for _, table := range result.Tables {
 		log.Info().Str("table", table.Name).Msg("create go template for table")
 		tmpl, err := template.New("template").
-			Funcs(sprig.FuncMap()).
+			Funcs(sprig.TxtFuncMap()).
 			Parse(models.Models[models.ModelType(*modelType)])
 		if err != nil {
 			log.Fatal().Err(err).Msg("failed to create go template for table")
@@ -67,11 +69,13 @@ func main() {
 
 		log.Info().Str("table", table.Name).Msg("render template for table")
 		err = tmpl.Execute(file, struct {
-			Result *Result
+			GenerateFuncs bool
+			Result        *Result
 			Table
 		}{
-			Result: result,
-			Table:  table,
+			GenerateFuncs: *generateFuncs,
+			Result:        result,
+			Table:         table,
 		})
 		file.Close()
 		if err != nil {
