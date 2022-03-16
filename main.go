@@ -18,16 +18,16 @@ import (
 )
 
 func main() {
-	var sqlFile = flag.String("sql-file", "example.sql", "SQL file to parse")
 	var modelType = flag.String("model-type", "bun", "Model output type: bun, ...")
 	var outputFolder = flag.String("output-folder", "out", "Output folder")
+	var sqlFile = flag.String("sql-file", "example.sql", "SQL file to parse")
 
 	flag.Parse()
 
 	log.Info().
-		Str("sql-file", *sqlFile).
 		Str("model-type", *modelType).
 		Str("output-folder", *outputFolder).
+		Str("sql-file", *sqlFile).
 		Msg("run with flags")
 
 	log.Info().Msg("create output folder")
@@ -68,7 +68,13 @@ func main() {
 		defer file.Close()
 
 		log.Info().Str("table", table.Name).Msg("render template for table")
-		err = tmpl.Execute(file, table)
+		err = tmpl.Execute(file, struct {
+			Result *Result
+			Table
+		}{
+			Result: result,
+			Table:  table,
+		})
 		file.Close()
 		if err != nil {
 			log.Fatal().Err(err).Msg("failed to render template for table") // nolint: gocritic

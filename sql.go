@@ -9,22 +9,33 @@ import (
 )
 
 type Result struct {
-	Tables []Table
+	Tables map[string]Table
+}
+
+type References []string
+
+func (rs References) Contain(table string) bool {
+	for _, r := range rs {
+		if r == table {
+			return true
+		}
+	}
+	return false
 }
 
 type Table struct {
-	Name    string
-	Columns []Column
+	Columns    map[string]Column
+	Name       string
+	References References
 }
 
 type Column struct {
-	Name    string
-	Type    string
-	Null    bool
+	NotNull bool
 	Options []string
+	Type    string
 }
 
-func parse(sql string) (*ast.StmtNode, error) {
+func parse(sql string) ([]ast.StmtNode, error) {
 	p := parser.New()
 
 	stmtNodes, _, err := p.Parse(sql, "", "")
@@ -32,44 +43,59 @@ func parse(sql string) (*ast.StmtNode, error) {
 		return nil, err
 	}
 
-	return &stmtNodes[0], nil
+	return stmtNodes, nil
 }
 
 func (v *Result) Enter(in ast.Node) (ast.Node, bool) {
 	if t, ok := in.(*ast.CreateTableStmt); ok {
-		table := Table{Name: t.Table.Name.O}
+		table := Table{
+			Columns: make(map[string]Column),
+			Name:    t.Table.Name.O,
+		}
 		for _, col := range t.Cols {
-			column := Column{
-				Name: col.Name.Name.O,
-				Null: true,
-			}
+			column := Column{}
 			switch col.Tp.EvalType() {
-			case types.ETInt:
-				column.Type = "int64"
-			case types.ETReal, types.ETDecimal:
-				column.Type = "float64"
 			case types.ETDatetime, types.ETTimestamp:
 				column.Type = "time.Time"
+			case types.ETDecimal, types.ETReal:
+				column.Type = "float64"
 			case types.ETDuration:
 				column.Type = "time.Duration"
+			case types.ETInt:
+				column.Type = "int64"
 			case types.ETJson:
 				column.Type = "interface{}"
 			case types.ETString:
 				column.Type = "string"
 			}
 			for _, option := range col.Options {
-				if option.Tp == ast.ColumnOptionNotNull {
-					column.Null = false
-					column.Options = append(column.Options, "not null")
-				}
-				if option.Tp == ast.ColumnOptionUniqKey {
-					column.Null = false
+				switch option.Tp {
+				case ast.ColumnOptionAutoIncrement:
+					column.Options = append(column.Options, "autoincrement")
+				case ast.ColumnOptionNotNull:
+					column.NotNull = true
+					column.Options = append(column.Options, "notnull")
+				case ast.ColumnOptionPrimaryKey:
+					column.Options = append(column.Options, "pk")
+				case ast.ColumnOptionReference:
+					table.References = append(table.References, option.Refer.Table.Name.O)
+				case ast.ColumnOptionUniqKey:
 					column.Options = append(column.Options, "unique")
 				}
 			}
-			table.Columns = append(table.Columns, column)
+			table.Columns[col.Name.Name.O] = column
 		}
-		v.Tables = append(v.Tables, table)
+		for _, cons := range t.Constraints {
+			switch cons.Tp {
+			case ast.ConstraintPrimaryKey:
+				for _, key := range cons.Keys {
+					column := table.Columns[key.Column.Name.O]
+					column.Options = append(column.Options, "pk")
+					table.Columns[key.Column.Name.O] = column
+				}
+			}
+		}
+		v.Tables[table.Name] = table
 	}
 	return in, false
 }
@@ -78,8 +104,12 @@ func (v *Result) Leave(in ast.Node) (ast.Node, bool) {
 	return in, true
 }
 
-func extract(rootNode *ast.StmtNode) *Result {
-	v := &Result{}
-	(*rootNode).Accept(v)
+func extract(rootNode []ast.StmtNode) *Result {
+	v := &Result{
+		Tables: make(map[string]Table),
+	}
+	for _, node := range rootNode {
+		node.Accept(v)
+	}
 	return v
 }
