@@ -9,9 +9,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/Masterminds/sprig"
-	_ "github.com/pingcap/parser/test_driver"
-	_ "github.com/pingcap/tidb/types/parser_driver"
+	sprig "github.com/Masterminds/sprig/v3"
 	"github.com/rs/zerolog/log"
 
 	"github.com/thecampagnards/sql-to-go/models"

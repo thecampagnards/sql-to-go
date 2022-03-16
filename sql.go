@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/pingcap/parser"
-	"github.com/pingcap/parser/ast"
-	_ "github.com/pingcap/parser/test_driver"
+	"github.com/pingcap/tidb/parser"
+	"github.com/pingcap/tidb/parser/ast"
 	"github.com/pingcap/tidb/types"
 	_ "github.com/pingcap/tidb/types/parser_driver"
 )
