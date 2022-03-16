@@ -19,6 +19,7 @@ func main() {
 	var generateFuncs = flag.Bool("generate-funcs", true, "Generate functions to request models")
 	var modelType = flag.String("model-type", "bun", "Model output type: bun, ...")
 	var outputFolder = flag.String("output-folder", "out", "Output folder")
+	var packageName = flag.String("package-name", "db", "Package name of the generated files")
 	var sqlFile = flag.String("sql-file", "example.sql", "SQL file to parse")
 
 	flag.Parse()
@@ -27,6 +28,7 @@ func main() {
 		Bool("generate-func", *generateFuncs).
 		Str("model-type", *modelType).
 		Str("output-folder", *outputFolder).
+		Str("package-name", *packageName).
 		Str("sql-file", *sqlFile).
 		Msg("run with flags")
 
@@ -70,10 +72,12 @@ func main() {
 		log.Info().Str("table", table.Name).Msg("render template for table")
 		err = tmpl.Execute(file, struct {
 			GenerateFuncs bool
+			PackageName   string
 			Result        *Result
 			Table
 		}{
 			GenerateFuncs: *generateFuncs,
+			PackageName:   *packageName,
 			Result:        result,
 			Table:         table,
 		})
