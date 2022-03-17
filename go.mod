@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/pingcap/tidb v1.1.0-beta.0.20220316172753-46c43febcac0
-	github.com/pingcap/tidb/parser v0.0.0-20220316172753-46c43febcac0
+	github.com/pingcap/tidb/parser v0.0.0-20220317124231-e130e5229041
 	github.com/rs/zerolog v1.26.1
 )
 
@@ -33,7 +33,7 @@ require (
 	github.com/opentracing/opentracing-go v1.2.0 // indirect
 	github.com/pingcap/errors v0.11.5-0.20211224045212-9687c2b0f87c // indirect
 	github.com/pingcap/failpoint v0.0.0-20220309090818-0d9efe9d1572 // indirect
-	github.com/pingcap/kvproto v0.0.0-20220314103629-10e688307221 // indirect
+	github.com/pingcap/kvproto v0.0.0-20220317075336-bd679cab506b // indirect
 	github.com/pingcap/log v0.0.0-20211215031037-e024ba4eb0ee // indirect
 	github.com/pingcap/tipb v0.0.0-20220314125451-bfb5c2c55188 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -47,7 +47,7 @@ require (
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/tikv/client-go/v2 v2.0.1-0.20220311043619-5042c6f2aaa6 // indirect
-	github.com/tikv/pd/client v0.0.0-20220316122553-1a353ae2058d // indirect
+	github.com/tikv/pd/client v0.0.0-20220317104631-f1b8f8066f74 // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
@@ -57,9 +57,9 @@ require (
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20220315194320-039c03cc5b86 // indirect
+	golang.org/x/sys v0.0.0-20220317061510-51cd9980dadf // indirect
 	golang.org/x/text v0.3.7 // indirect
-	google.golang.org/genproto v0.0.0-20220314164441-57ef72a4c106 // indirect
+	google.golang.org/genproto v0.0.0-20220317150908-0efb43f6373e // indirect
 	google.golang.org/grpc v1.45.0 // indirect
 	google.golang.org/protobuf v1.27.1 // indirect
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0 // indirect
