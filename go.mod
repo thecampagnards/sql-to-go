@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/pingcap/tidb v1.1.0-beta.0.20220316172753-46c43febcac0
-	github.com/pingcap/tidb/parser v0.0.0-20220317124231-e130e5229041
+	github.com/pingcap/tidb/parser v0.0.0-20220318072830-64b057dea2e9
 	github.com/rs/zerolog v1.26.1
 )
 
@@ -47,7 +47,7 @@ require (
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cast v1.4.1 // indirect
 	github.com/tikv/client-go/v2 v2.0.1-0.20220311043619-5042c6f2aaa6 // indirect
-	github.com/tikv/pd/client v0.0.0-20220317104631-f1b8f8066f74 // indirect
+	github.com/tikv/pd/client v0.0.0-20220318040831-d58d7c9b11dc // indirect
 	github.com/uber/jaeger-client-go v2.30.0+incompatible // indirect
 	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
@@ -57,7 +57,7 @@ require (
 	golang.org/x/crypto v0.0.0-20220315160706-3147a52a75dd // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c // indirect
-	golang.org/x/sys v0.0.0-20220317061510-51cd9980dadf // indirect
+	golang.org/x/sys v0.0.0-20220318055525-2edf467146b5 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/genproto v0.0.0-20220317150908-0efb43f6373e // indirect
 	google.golang.org/grpc v1.45.0 // indirect

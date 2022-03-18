@@ -1,6 +1,6 @@
 CREATE TABLE user
 (
-    id INT PRIMARY KEY NOT NULL,
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     city VARCHAR(255),
     country VARCHAR(255),
     date_of_birth DATE,
@@ -12,25 +12,25 @@ CREATE TABLE user
 
 CREATE TABLE book
 (
-    id INT PRIMARY KEY NOT NULL,
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(100),
-    user_id INT REFERENCES user(id)
+    user_id BIGINT REFERENCES user(id)
 );
 
 CREATE TABLE a
 (
-    id INT PRIMARY KEY NOT NULL
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT
 );
 
 CREATE TABLE b
 (
-    id INT PRIMARY KEY NOT NULL
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT
 );
 
 CREATE TABLE a_to_b
 (
-    a_id INT REFERENCES a(id),
-    b_id INT REFERENCES b(id),
+    a_id BIGINT REFERENCES a(id),
+    b_id BIGINT REFERENCES b(id),
     example VARCHAR(255),
     PRIMARY KEY(a_id, b_id)
 );
