@@ -1,6 +1,8 @@
 package main
 
 import (
+	"strings"
+
 	"github.com/pingcap/tidb/parser"
 	"github.com/pingcap/tidb/parser/ast"
 	"github.com/pingcap/tidb/types"
@@ -36,6 +38,9 @@ type Column struct {
 
 func parse(sql string) ([]ast.StmtNode, error) {
 	p := parser.New()
+
+	// replace postgres serials
+	sql = strings.ReplaceAll(sql, "SERIAL", "INT NOT NULL AUTO_INCREMENT")
 
 	stmtNodes, _, err := p.Parse(sql, "", "")
 	if err != nil {

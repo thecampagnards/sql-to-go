@@ -1,11 +1,11 @@
 module github.com/thecampagnards/sql-to-go
 
-go 1.18
+go 1.17
 
 require (
 	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/pingcap/tidb v1.1.0-beta.0.20220316172753-46c43febcac0
-	github.com/pingcap/tidb/parser v0.0.0-20220318072830-64b057dea2e9
+	github.com/pingcap/tidb/parser v0.0.0-20220318092833-a30449081049
 	github.com/rs/zerolog v1.26.1
 )
 
