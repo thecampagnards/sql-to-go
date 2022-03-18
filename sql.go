@@ -90,6 +90,7 @@ func (v *Result) Enter(in ast.Node) (ast.Node, bool) {
 			table.Columns[col.Name.Name.O] = column
 		}
 		for _, cons := range t.Constraints {
+			// nolint: gocritic
 			switch cons.Tp {
 			case ast.ConstraintPrimaryKey:
 				for _, key := range cons.Keys {

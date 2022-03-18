@@ -581,10 +581,6 @@ github.com/pingcap/tidb v1.1.0-beta.0.20220316172753-46c43febcac0/go.mod h1:tBBs
 github.com/pingcap/tidb-tools v6.0.0-alpha.0.20220309081549-563c2a342f9c+incompatible h1:oJa/SdxUweAwihGI83pBRle0LBrGPXMPkp2eElH6sF8=
 github.com/pingcap/tidb-tools v6.0.0-alpha.0.20220309081549-563c2a342f9c+incompatible/go.mod h1:XGdcy9+yqlDSEMTpOXnwf3hiTeqrV6MN/u1se9N8yIM=
 github.com/pingcap/tidb/parser v0.0.0-20211011031125-9b13dc409c5e/go.mod h1:e1MGCA9Sg3T8jid8PKAEq5eYVuMMCq4n8gJ+Kqp4Plg=
-github.com/pingcap/tidb/parser v0.0.0-20220317124231-e130e5229041 h1:Mlqt95xSx0aGy4qzu8H9VLI9Glude8KXeqB7/6i51cw=
-github.com/pingcap/tidb/parser v0.0.0-20220317124231-e130e5229041/go.mod h1:ElJiub4lRy6UZDb+0JHDkGEdr6aOli+ykhyej7VCLoI=
-github.com/pingcap/tidb/parser v0.0.0-20220318072830-64b057dea2e9 h1:7GfYVtRkTLDQQw8IwgaxiaTvX0vv988ah/QU7nJyu64=
-github.com/pingcap/tidb/parser v0.0.0-20220318072830-64b057dea2e9/go.mod h1:ElJiub4lRy6UZDb+0JHDkGEdr6aOli+ykhyej7VCLoI=
 github.com/pingcap/tidb/parser v0.0.0-20220318092833-a30449081049 h1:bgsfFVS/AtdjwauN1aGYfAILUeHapvEInDfZRDhLPK4=
 github.com/pingcap/tidb/parser v0.0.0-20220318092833-a30449081049/go.mod h1:ElJiub4lRy6UZDb+0JHDkGEdr6aOli+ykhyej7VCLoI=
 github.com/pingcap/tipb v0.0.0-20220215045658-d12dec7a7609/go.mod h1:A7mrd7WHBl1o63LE2bIBGEJMTNWXqhgmYiOvMLxozfs=
@@ -700,8 +696,6 @@ github.com/tiancaiamao/appdash v0.0.0-20181126055449-889f96f722a2/go.mod h1:2PfK
 github.com/tikv/client-go/v2 v2.0.1-0.20220311043619-5042c6f2aaa6 h1:wEyMlpW7dGbQmRcM7LdfW5muU84kvHSaZnYY387O/qY=
 github.com/tikv/client-go/v2 v2.0.1-0.20220311043619-5042c6f2aaa6/go.mod h1:0scaG+seu7L56apm+Gjz9vckyO7ABIzM6T7n00mrIXs=
 github.com/tikv/pd/client v0.0.0-20220307081149-841fa61e9710/go.mod h1:AtvppPwkiyUgQlR1W9qSqfTB+OsOIu19jDCOxOsPkmU=
-github.com/tikv/pd/client v0.0.0-20220317104631-f1b8f8066f74 h1:VYhNx4IpLCHKSPFjTSqVTkrQ3k27G+Nju7MRtW5aA1U=
-github.com/tikv/pd/client v0.0.0-20220317104631-f1b8f8066f74/go.mod h1:AtvppPwkiyUgQlR1W9qSqfTB+OsOIu19jDCOxOsPkmU=
 github.com/tikv/pd/client v0.0.0-20220318040831-d58d7c9b11dc h1:XNrNnbAWhgaEG86rhc9h7zkdlI+jnfDpLCspChF4px8=
 github.com/tikv/pd/client v0.0.0-20220318040831-d58d7c9b11dc/go.mod h1:AtvppPwkiyUgQlR1W9qSqfTB+OsOIu19jDCOxOsPkmU=
 github.com/tklauser/go-sysconf v0.3.9 h1:JeUVdAOWhhxVcU6Eqr/ATFHgXk/mmiItdKeJPev3vTo=
@@ -1033,8 +1027,6 @@ golang.org/x/sys v0.0.0-20211216021012-1d35b9e2eb4e/go.mod h1:oPkhp1MJrh7nUepCBc
 golang.org/x/sys v0.0.0-20220111092808-5a964db01320/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20220114195835-da31bd327af9/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20220310020820-b874c991c1a5/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
-golang.org/x/sys v0.0.0-20220317061510-51cd9980dadf h1:Fm4IcnUL803i92qDlmB0obyHmosDrxZWxJL3gIeNqOw=
-golang.org/x/sys v0.0.0-20220317061510-51cd9980dadf/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.0.0-20220318055525-2edf467146b5 h1:saXMvIOKvRFwbOMicHXr0B1uwoxq9dGmLe5ExMES6c4=
 golang.org/x/sys v0.0.0-20220318055525-2edf467146b5/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/term v0.0.0-20201126162022-7de9c90e9dd1/go.mod h1:bj7SfCRtBDWHUb9snDiAeCFNEtKQo2Wmx5Cou7ajbmo=
