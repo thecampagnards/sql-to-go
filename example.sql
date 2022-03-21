@@ -7,8 +7,18 @@ CREATE TABLE user
     email VARCHAR(255),
     name VARCHAR(100),
     postal_code VARCHAR(5),
-    surname VARCHAR(100)
+    surname VARCHAR(100),
+    test_alter_type INT,
+    test_alter_rename INT
 );
+
+ALTER TABLE user ADD example VARCHAR(255);
+
+ALTER TABLE user DROP COLUMN country;
+
+ALTER TABLE user ALTER COLUMN test_alter_type TYPE VARCHAR(255);
+
+ALTER TABLE user RENAME COLUMN test_alter_rename TO test_alter_rename_new;
 
 CREATE TABLE book
 (
