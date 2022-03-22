@@ -24,8 +24,13 @@ CREATE TABLE book
 (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(100),
-    user_id BIGINT REFERENCES user(id)
+    user_id BIGINT REFERENCES user(id),
+    test_alter_reference_id BIGINT REFERENCES user(id)
 );
+
+-- ALTER TABLE book ADD CONSTRAINT book_ibfk_3 FOREIGN KEY (test_alter_reference2_id) REFERENCES user(id);
+
+ALTER TABLE book DROP FOREIGN KEY book_test_alter_reference_id_fkey;
 
 CREATE TABLE a
 (

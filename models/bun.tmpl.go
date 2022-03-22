@@ -27,18 +27,18 @@ type {{ camelcase $.Name }} struct {
 		{{ camelcase $key | replace "Id" "ID" }} {{ if not $column.NotNull }}*{{ end }}{{ $column.Type }}  ` + "`" + `bun:"{{ $key }},{{ $column.Options | join "," }}"` + "`" + `
 	{{- end }}
 
-	{{- range $reference := $.References }}
-		{{ camelcase $reference }} *{{ camelcase $reference }} ` + "`" + `bun:"rel:belongs-to"` + "`" + `
+	{{- range $key, $column := $.Columns }}
+		{{- if $column.Reference }}
+			{{ camelcase $key | trimSuffix "Id" }} *{{ camelcase $column.Reference }} ` + "`" + `bun:"rel:belongs-to"` + "`" + `
+		{{- end }}
 	{{- end }}
-
-
-	{{- range $key, $table := $.Result.Tables }}
-		{{- range $reference := $table.References }}
-			{{- if eq $reference $.Name }}
-				{{- if $.References.Contain $reference }}
-					{{ camelcase $key }} *{{ camelcase $key }} ` + "`" + `bun:"rel:has-one"` + "`" + `
+	{{- range $table := $.Result.Tables }}
+		{{- range $key, $column := $table.Columns }}
+			{{- if eq $column.Reference $.Name }}
+				{{- if $.Table.GetReferenceColumn $key }}
+					{{ camelcase $table.Name }} *{{ camelcase $table.Name }} ` + "`" + `bun:"rel:has-one,join:id={{ $key }}"` + "`" + `
 				{{- else }}
-					{{ camelcase $key }}s []*{{ camelcase $key }} ` + "`" + `bun:"rel:has-many"` + "`" + `
+					{{ trimSuffix $.Name (trimSuffix "_id" $key) | camelcase }}{{ $table.Name | camelcase }}s []*{{ camelcase $table.Name }} ` + "`" + `bun:"rel:has-many,join:id={{ $key }}"` + "`" + `
 				{{- end }}
 			{{- end }}
 		{{- end }}
