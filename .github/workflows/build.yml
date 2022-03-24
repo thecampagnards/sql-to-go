@@ -20,7 +20,7 @@ jobs:
           go-version: ^1.18
       - uses: actions/checkout@v3
       - name: go run
-        run: go run .
+        run: go run . examples/*.sql
       - run: rm -rf out/
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v3

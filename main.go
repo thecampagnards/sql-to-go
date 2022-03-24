@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"text/template"
 
 	sprig "github.com/Masterminds/sprig/v3"
@@ -20,16 +21,15 @@ func main() {
 	var modelType = flag.String("model-type", "bun", "Model output type: bun, ...")
 	var outputFolder = flag.String("output-folder", "out", "Output folder")
 	var packageName = flag.String("package-name", "db", "Package name of the generated files")
-	var sqlFile = flag.String("sql-file", "example.sql", "SQL file to parse")
-
 	flag.Parse()
+	sqlFiles := flag.Args()
 
 	log.Info().
 		Bool("generate-func", *generateFuncs).
 		Str("model-type", *modelType).
 		Str("output-folder", *outputFolder).
 		Str("package-name", *packageName).
-		Str("sql-file", *sqlFile).
+		Strs("sql-files", sqlFiles).
 		Msg("run with flags")
 
 	log.Info().Msg("create output folder")
@@ -37,14 +37,18 @@ func main() {
 		log.Fatal().Err(err).Msg("failed to create output folder")
 	}
 
-	log.Info().Msg("read sql file")
-	sql, err := ioutil.ReadFile(*sqlFile)
-	if err != nil {
-		log.Fatal().Err(err).Msg("failed to read sql file")
+	sql := ""
+	for _, sqlFile := range sqlFiles {
+		log.Info().Msg("read sql files")
+		tmp, err := ioutil.ReadFile(sqlFile)
+		if err != nil {
+			log.Fatal().Err(err).Msg("failed to read sql file")
+		}
+		sql += string(strings.Split(string(tmp), "-- migrate:down")[0])
 	}
 
 	log.Info().Msg("parse sql file")
-	astNode, err := parse(string(sql))
+	astNode, err := parse(sql)
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to parse sql file")
 	}
