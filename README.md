@@ -6,14 +6,14 @@ Generates golang structures based on an sql script file containing create tables
 
 ```bash
 go get github.com/thecampagnards/sql-to-go
-sql-to-go -sql-file example.sql -model-type bun -output-folder out
+sql-to-go -model-type bun -output-folder out examples/*.sql
 ```
 
 ### Using docker
 
 ```bash
 alias sql-to-go='docker run --rm -ti --user $(id -u):$(id -g) -v $(pwd):/app -w /app ghcr.io/thecampagnards/sql-to-go:master'
-sql-to-go -sql-file example.sql -model-type bun -output-folder out
+sql-to-go -model-type bun -output-folder out examples/*.sql
 ```
 
 ### Output
@@ -103,5 +103,5 @@ type User struct {
 ## Dev
 
 ```bash
-go run . -sql-file example.sql -model-type bun -output-folder out
+go run . -model-type bun -output-folder out examples/*.sql
 ```
