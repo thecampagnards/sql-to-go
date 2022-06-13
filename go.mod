@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/pingcap/tidb v1.1.0-beta.0.20220316172753-46c43febcac0
 	github.com/pingcap/tidb/parser v0.0.0-20220322104232-9f72bcded796
-	github.com/rs/zerolog v1.26.1
+	github.com/rs/zerolog v1.27.0
 )
 
 require (
@@ -26,6 +26,8 @@ require (
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/lufia/plan9stats v0.0.0-20220305071607-d0b38dbe16db // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
+	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
