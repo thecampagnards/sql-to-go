@@ -42,7 +42,7 @@ func parse(sql string) ([]ast.StmtNode, error) {
 	p := parser.New()
 
 	// replace to handle postgres
-	sql = strings.ReplaceAll(sql, "SERIAL", "INT NOT NULL AUTO_INCREMENT")
+	sql = strings.ReplaceAll(sql, "SERIAL", "INT NOT NULL AUTO_INCREMENT PRIMARY KEY")
 	r := regexp.MustCompile(`ALTER COLUMN (.+) TYPE`)
 	sql = r.ReplaceAllString(sql, "MODIFY $1")
 
