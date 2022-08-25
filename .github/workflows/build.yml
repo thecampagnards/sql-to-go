@@ -15,10 +15,10 @@ jobs:
     name: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.18
-      - uses: actions/checkout@v3
       - name: go run
         run: go run . examples/*.sql
       - run: rm -rf out/
@@ -58,18 +58,21 @@ jobs:
     name: page
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
+    defaults:
+      run:
+        working-directory: wasm
     steps:
+      - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
           go-version: ^1.18
-      - uses: actions/checkout@v3
       - name: Build go wasm
         env:
           GOOS: js
           GOARCH: wasm
-        run: go build -o wasm/main.wasm
+        run: go build -o main.wasm .
       - run: cp "$(go env GOROOT)/misc/wasm/wasm_exec.js" .
-      - run: rm -rf wasm/*.{mod,sum,go}
+      - run: rm -rf *.{mod,sum,go} .gitignore
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:

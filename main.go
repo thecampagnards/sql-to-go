@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -25,7 +24,7 @@ func main() {
 	sql := ""
 	for _, sqlFile := range sqlFiles {
 		log.Info().Msg("read sql files")
-		tmp, err := ioutil.ReadFile(sqlFile)
+		tmp, err := os.ReadFile(sqlFile)
 		if err != nil {
 			log.Fatal().Err(err).Msg("failed to read sql file")
 		}

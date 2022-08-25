@@ -15,4 +15,5 @@ textarea {
 
 .CodeMirror {
     margin: 5px;
+    height: 80vh;
 }
