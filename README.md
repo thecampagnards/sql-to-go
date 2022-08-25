@@ -5,7 +5,7 @@ Generates golang structures based on an sql script file containing create tables
 ## Install
 
 ```bash
-go get github.com/thecampagnards/sql-to-go
+go install github.com/thecampagnards/sql-to-go
 sql-to-go -model-type bun -output-folder out examples/*.sql
 ```
 

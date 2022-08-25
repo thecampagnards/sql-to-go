@@ -8,12 +8,10 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strings"
-	"text/template"
 
-	sprig "github.com/Masterminds/sprig/v3"
 	"github.com/rs/zerolog/log"
 
-	"github.com/thecampagnards/sql-to-go/models"
+	"github.com/thecampagnards/sql-to-go/run"
 )
 
 func main() {
@@ -23,19 +21,6 @@ func main() {
 	var packageName = flag.String("package-name", "db", "Package name of the generated files")
 	flag.Parse()
 	sqlFiles := flag.Args()
-
-	log.Info().
-		Bool("generate-func", *generateFuncs).
-		Str("model-type", *modelType).
-		Str("output-folder", *outputFolder).
-		Str("package-name", *packageName).
-		Strs("sql-files", sqlFiles).
-		Msg("run with flags")
-
-	log.Info().Msg("create output folder")
-	if err := os.MkdirAll(*outputFolder, os.ModePerm); err != nil {
-		log.Fatal().Err(err).Msg("failed to create output folder")
-	}
 
 	sql := ""
 	for _, sqlFile := range sqlFiles {
@@ -47,47 +32,32 @@ func main() {
 		sql += string(strings.Split(string(tmp), "-- migrate:down")[0])
 	}
 
-	log.Info().Msg("parse sql file")
-	astNode, err := parse(sql)
+	files, err := run.Run(run.RunParams{
+		GenerateFuncs: *generateFuncs,
+		ModelType:     *modelType,
+		PackageName:   *packageName,
+		SQL:           sql,
+	})
 	if err != nil {
-		log.Fatal().Err(err).Msg("failed to parse sql file")
+		log.Fatal().Err(err).Msg("failed to run")
 	}
 
-	result := extract(astNode)
+	log.Info().Msg("create output folder")
+	if err := os.MkdirAll(*outputFolder, os.ModePerm); err != nil {
+		log.Fatal().Err(err).Msg("failed to create output folder")
+	}
 
-	log.Info().Msg("create db models")
-	for _, table := range result.Tables {
-		log.Info().Str("table", table.Name).Msg("create go template for table")
-		tmpl, err := template.New("template").
-			Funcs(sprig.TxtFuncMap()).
-			Parse(models.Models[models.ModelType(*modelType)])
-		if err != nil {
-			log.Fatal().Err(err).Msg("failed to create go template for table")
-		}
-
-		log.Info().Str("table", table.Name).Msg("create file for table")
-		newpath := filepath.Join(*outputFolder, fmt.Sprintf("%s.go", table.Name))
-		file, err := os.OpenFile(newpath, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
+	for file, content := range files {
+		log.Info().Str("table", file).Msg("create file for table")
+		f, err := os.OpenFile(filepath.Join(*outputFolder, fmt.Sprintf("%s.go", file)), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0600)
 		if err != nil {
 			log.Fatal().Err(err).Msg("failed to create file for table")
 		}
-		defer file.Close()
+		defer f.Close()
 
-		log.Info().Str("table", table.Name).Msg("render template for table")
-		err = tmpl.Execute(file, struct {
-			GenerateFuncs bool
-			PackageName   string
-			Result        *Result
-			Table
-		}{
-			GenerateFuncs: *generateFuncs,
-			PackageName:   *packageName,
-			Result:        result,
-			Table:         table,
-		})
-		file.Close()
+		_, err = f.WriteString(content)
 		if err != nil {
-			log.Fatal().Err(err).Msg("failed to render template for table") // nolint: gocritic
+			log.Fatal().Err(err).Msg("failed to create file for table")
 		}
 	}
 
@@ -95,6 +65,4 @@ func main() {
 	if err := exec.Command("gofmt", "-w", *outputFolder).Run(); err != nil {
 		log.Fatal().Err(err).Msg("failed to format db models")
 	}
-
-	log.Info().Msg("done")
 }
