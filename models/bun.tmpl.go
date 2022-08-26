@@ -24,7 +24,7 @@ type {{ camelcase $.Name }} struct {
 	bun.BaseModel ` + "`" + `bun:"table:{{ $.Name }}"` + "`" + `
 
 	{{- range $key, $column := $.Columns }}
-		{{ camelcase $key | replace "Id" "ID" }} {{ if not $column.NotNull }}*{{ end }}{{ $column.Type }}  ` + "`" + `bun:"{{ $key }},{{ $column.Options | join "," }}"` + "`" + `
+		{{ camelcase $key | replace "Id" "ID" }} {{ if not $column.NotNull }}*{{ end }}{{ $column.Type }}  ` + "`" + `bun:"{{ $key }},{{ $column.Options | uniq | join "," }}"` + "`" + `
 	{{- end }}
 
 	{{- range $key, $column := $.Columns }}
