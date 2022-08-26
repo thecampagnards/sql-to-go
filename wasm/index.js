@@ -9,7 +9,8 @@ inEditor.save()
 var outEditor = CodeMirror.fromTextArea(document.getElementById("out"), {
   mode: "go",
   lineNumbers: true,
-  theme: "monokai"
+  theme: "monokai",
+  readOnly: "true",
 });
 outEditor.setSize("45%", null)
 outEditor.save()
