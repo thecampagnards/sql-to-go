@@ -24,7 +24,7 @@ func Run(params RunParams) (map[string]string, error) {
 		Bool("generate-func", params.GenerateFuncs).
 		Str("model-type", params.ModelType).
 		Str("package-name", params.PackageName).
-		Msg("run with flags")
+		Msg("run with options")
 
 	log.Info().Msg("parse sql file")
 	astNode, err := parse(params.SQL)
