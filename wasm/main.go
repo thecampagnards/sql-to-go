@@ -2,7 +2,12 @@ package main
 
 import (
 	"fmt"
+	"regexp"
 	"syscall/js"
+
+	"mvdan.cc/gofumpt/format"
+
+	"github.com/thecampagnards/sql-to-go/run"
 )
 
 func main() {
@@ -16,25 +21,30 @@ func parse() js.Func {
 			return "Invalid no of arguments passed"
 		}
 		input := args[0].String()
-		fmt.Printf("input: %s\n", input)
-		/*	files, err := run.Run(run.RunParams{
-				GenerateFuncs: false,
-				ModelType:     "bun",
-				PackageName:   "db",
-				SQL:           input,
-			})
-			if err != nil {
-				fmt.Printf("unable to parse SQL: %s\n", err)
-				return err.Error()
-			}
-		*/
-		files := map[string]string{"test": "test"}
+		files, err := run.Run(run.RunParams{
+			GenerateFuncs: false,
+			ModelType:     "bun",
+			PackageName:   "db",
+			SQL:           input,
+		})
+		if err != nil {
+			fmt.Printf("unable to parse SQL: %s\n", err)
+			return err.Error()
+		}
 
 		result := ""
-		for file, content := range files {
-			result += fmt.Sprintf("// %s\n%s\n", file, content)
+		for _, content := range files {
+			if result != "" {
+				re := regexp.MustCompile(`(?m)((.|\n)*)\)`)
+				content = re.ReplaceAllString(content, "")
+			}
+			result += fmt.Sprintf("%s\n", content)
 		}
-		fmt.Printf("result: %s\n", result)
-		return result
+		bytes, err := format.Source([]byte(result), format.Options{})
+		if err != nil {
+			fmt.Printf("unable to format code: %s\n", err)
+			return err.Error()
+		}
+		return string(bytes)
 	})
 }
