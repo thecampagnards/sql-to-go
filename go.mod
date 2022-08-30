@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.2
 	github.com/pingcap/tidb v1.1.0-beta.0.20220825095821-f16f52ca7c39
 	github.com/pingcap/tidb/parser v0.0.0-20220825095821-f16f52ca7c39
-	github.com/rs/zerolog v1.27.0
+	github.com/rs/zerolog v1.28.0
 )
 
 require (
