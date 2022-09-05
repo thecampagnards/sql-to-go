@@ -22,12 +22,18 @@ func main() {
 
 	sql := ""
 	for _, sqlFile := range sqlFiles {
-		log.Info().Msg("read sql files")
-		tmp, err := os.ReadFile(sqlFile)
+		log.Info().Str("sql-file", sqlFile).Msg("read sql file")
+		files, err := filepath.Glob(sqlFile)
 		if err != nil {
-			log.Fatal().Err(err).Msg("failed to read sql file")
+			log.Fatal().Err(err).Str("sql-file", sqlFile).Msg("failed to filepath glob")
 		}
-		sql += string(strings.Split(string(tmp), "-- migrate:down")[0])
+		for _, file := range files {
+			tmp, err := os.ReadFile(file)
+			if err != nil {
+				log.Fatal().Err(err).Str("file", file).Msg("failed to read sql file")
+			}
+			sql += string(strings.Split(string(tmp), "-- migrate:down")[0])
+		}
 	}
 
 	files, err := run.Run(run.RunParams{

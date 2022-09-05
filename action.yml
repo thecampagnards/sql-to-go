@@ -28,12 +28,8 @@ runs:
   using: "docker"
   image: "docker://ghcr.io/thecampagnards/sql-to-go:master"
   args:
-    - -generate-funcs
-    - ${{ inputs.generate-funcs }}
-    - -model-type
-    - ${{ inputs.model-type }}
-    - -output-folder
-    - ${{ inputs.output-folder }}
-    - -package-name
-    - ${{ inputs.package-name }}
+    - -generate-funcs=${{ inputs.generate-funcs }}
+    - -model-type=${{ inputs.model-type }}
+    - -output-folder=${{ inputs.output-folder }}
+    - -package-name=${{ inputs.package-name }}
     - ${{ inputs.sql-files }}

@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
-          go-version: ^1.18
+          go-version: ^1.19
       - name: go run
         run: go run . examples/*.sql
       - run: rm -rf out/
@@ -65,7 +65,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
-          go-version: ^1.18
+          go-version: ^1.19
       - name: Build go wasm
         env:
           GOOS: js
