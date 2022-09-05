@@ -1,19 +1,39 @@
-name: 'SQL to Go'
-description: 'Generate your structs'
+name: "SQL to Go"
+description: "Generate your structs"
 inputs:
   generate-funcs:
-    description: 'If you generate the functions'
-  model-type:
-    description: 'DB model type'
-  output-folder:
-    description: 'Output folder'
-  package-name:
-    description: 'Package name'
-  sql-files:
-    description: 'SQL files'
+    description: "If you generate the functions"
+    default: "true"
     required: true
+  model-type:
+    description: "DB model type"
+    default: "bun"
+    required: true
+  output-folder:
+    description: "Output folder"
+    default: "out"
+    required: true
+  package-name:
+    description: "Package name"
+    default: "db"
+    required: true
+  sql-files:
+    description: "SQL files"
+    required: true
+  version:
+    description: "SQL to Go version"
+    required: true
+    default: master
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "docker://ghcr.io/thecampagnards/sql-to-go:master"
   args:
-    - -generate-funcs ${{ inputs.generate-funcs }} -model-type ${{ inputs.model-type }} -output-folder ${{ inputs.output-folder }} -package-name ${{ inputs.package-name }} ${{ inputs.sql-files }}
+    - -generate-funcs
+    - ${{ inputs.generate-funcs }}
+    - -model-type
+    - ${{ inputs.model-type }}
+    - -output-folder
+    - ${{ inputs.output-folder }}
+    - -package-name
+    - ${{ inputs.package-name }}
+    - ${{ inputs.sql-files }}

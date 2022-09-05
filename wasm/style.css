@@ -1,0 +1,19 @@
+textarea {
+    width: 45%;
+    height: 80vh;
+    resize: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.inputs {
+    display: flex;
+    justify-content: center;
+}
+
+div.CodeMirror {
+    margin: 5px;
+    height: 80vh;
+}

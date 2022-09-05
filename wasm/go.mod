@@ -1,18 +1,25 @@
-module github.com/thecampagnards/sql-to-go
+module github.com/thecampagnards/sql-to-go/wasm
 
 go 1.18
 
+replace github.com/thecampagnards/sql-to-go => ../
+
+replace github.com/cznic/mathutil => github.com/5kbpers/mathutil v0.0.0-20200420051611-5a9b4ef9a225
+
+replace github.com/danjacques/gofslock => github.com/thecampagnards/gofslock v0.0.0-20220826071154-627662dc23fa
+
+replace github.com/shirou/gopsutil/v3 => github.com/thecampagnards/gopsutil/v3 v3.0.0-20220826080714-7cd403feaf0e
+
 require (
-	github.com/Masterminds/sprig/v3 v3.2.2
-	github.com/pingcap/tidb v1.1.0-beta.0.20220825095821-f16f52ca7c39
-	github.com/pingcap/tidb/parser v0.0.0-20220825095821-f16f52ca7c39
-	github.com/rs/zerolog v1.28.0
+	github.com/thecampagnards/sql-to-go v0.0.0-00010101000000-000000000000
+	mvdan.cc/gofumpt v0.3.1
 )
 
 require (
 	github.com/BurntSushi/toml v1.2.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.1.1 // indirect
+	github.com/Masterminds/sprig/v3 v3.2.2 // indirect
 	github.com/benbjohnson/clock v1.3.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
@@ -21,6 +28,7 @@ require (
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
@@ -37,6 +45,8 @@ require (
 	github.com/pingcap/failpoint v0.0.0-20220801062533-2eaa32854a6c // indirect
 	github.com/pingcap/kvproto v0.0.0-20220818063303-5c20f55db5ad // indirect
 	github.com/pingcap/log v1.1.0 // indirect
+	github.com/pingcap/tidb v1.1.0-beta.0.20220825095821-f16f52ca7c39 // indirect
+	github.com/pingcap/tidb/parser v0.0.0-20220825095821-f16f52ca7c39 // indirect
 	github.com/pingcap/tipb v0.0.0-20220824081009-0714a57aff1d // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/power-devops/perfstat v0.0.0-20220216144756-c35f1ee13d7c // indirect
@@ -44,7 +54,7 @@ require (
 	github.com/prometheus/client_model v0.2.0 // indirect
 	github.com/prometheus/common v0.37.0 // indirect
 	github.com/prometheus/procfs v0.8.0 // indirect
-	github.com/remyoudompheng/bigfft v0.0.0-20200410134404-eec4a21b6bb0 // indirect
+	github.com/rs/zerolog v1.28.0 // indirect
 	github.com/shirou/gopsutil/v3 v3.22.7 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
@@ -59,10 +69,12 @@ require (
 	go.uber.org/zap v1.23.0 // indirect
 	golang.org/x/crypto v0.0.0-20220824171710-5757bc0c5503 // indirect
 	golang.org/x/exp v0.0.0-20220823124025-807a23277127 // indirect
+	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
 	golang.org/x/net v0.0.0-20220822230855-b0a4917ee28c // indirect
 	golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde // indirect
 	golang.org/x/sys v0.0.0-20220823224334-20c2bfdbfe24 // indirect
 	golang.org/x/text v0.3.7 // indirect
+	golang.org/x/tools v0.1.12 // indirect
 	google.golang.org/genproto v0.0.0-20220822174746-9e6da59bd2fc // indirect
 	google.golang.org/grpc v1.49.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect

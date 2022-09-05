@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>SQL to Go</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/theme/monokai.min.css">
+  </head>
+  <body>
+    <h1 class="center"><a href="https://github.com/thecampagnards/sql-to-go">SQL to Go</a></h1>
+    <div id="error"></div>
+    <div class="inputs">
+      <textarea id="in"></textarea>
+      <textarea id="out" readonly></textarea>
+    </div>
+    <script type="text/javascript" src="./wasm_exec.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/mode/go/go.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.8/mode/sql/sql.min.js"></script>
+    <script type="text/javascript" src="./index.js"></script>
+  </body>
+</html>
