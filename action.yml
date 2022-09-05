@@ -1,0 +1,19 @@
+name: 'SQL to Go'
+description: 'Generate your structs'
+inputs:
+  generate-funcs:
+    description: 'If you generate the functions'
+  model-type:
+    description: 'DB model type'
+  output-folder:
+    description: 'Output folder'
+  package-name:
+    description: 'Package name'
+  sql-files:
+    description: 'SQL files'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - -generate-funcs ${{ inputs.generate-funcs }} -model-type ${{ inputs.model-type }} -output-folder ${{ inputs.output-folder }} -package-name ${{ inputs.package-name }} ${{ inputs.sql-files }}
