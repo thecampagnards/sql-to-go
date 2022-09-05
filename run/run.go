@@ -3,6 +3,7 @@ package run
 import (
 	"bytes"
 	"fmt"
+	"go/format"
 	"text/template"
 
 	sprig "github.com/Masterminds/sprig/v3"
@@ -61,7 +62,14 @@ func Run(params RunParams) (map[string]string, error) {
 		if err != nil {
 			return nil, fmt.Errorf("failed to render template for table: %w", err)
 		}
-		output[table.Name] = buf.String()
+
+		log.Info().Str("table", table.Name).Msg("format content")
+		bytes, err := format.Source(buf.Bytes())
+		if err != nil {
+			return nil, fmt.Errorf("failed to format content for table: %w", err)
+		}
+
+		output[table.Name] = string(bytes)
 	}
 
 	log.Info().Msg("done")

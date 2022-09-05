@@ -1,10 +1,10 @@
 const inEditor = CodeMirror.fromTextArea(document.getElementById("in"), {
   mode: "sql",
   lineNumbers: true,
-  theme: "monokai"
+  theme: "monokai",
 });
-inEditor.setSize("45%", null)
-inEditor.save()
+inEditor.setSize("45%", null);
+inEditor.save();
 
 var outEditor = CodeMirror.fromTextArea(document.getElementById("out"), {
   mode: "go",
@@ -12,24 +12,33 @@ var outEditor = CodeMirror.fromTextArea(document.getElementById("out"), {
   theme: "monokai",
   readOnly: "true",
 });
-outEditor.setSize("45%", null)
-outEditor.save()
+outEditor.setSize("45%", null);
+outEditor.save();
+
+if (!WebAssembly.instantiateStreaming) {
+  // polyfill
+  WebAssembly.instantiateStreaming = async (resp, importObject) => {
+    const source = await (await resp).arrayBuffer();
+    return await WebAssembly.instantiate(source, importObject);
+  };
+}
 
 const go = new Go();
-WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then(
+  (result) => {
     go.run(result.instance);
+    document.getElementById("loader").remove();
     inEditor.on("change", (event) => {
       try {
         const r = window.parse(event.doc.getValue());
-        console.log(r)
+        console.log(r);
         outEditor.getDoc().setValue(r);
       } catch (err) {
         document.getElementById("error").textContent = err;
         console.log("caught error:", err);
       }
     });
-    inEditor.getDoc().setValue(`
-CREATE TABLE user
+    inEditor.getDoc().setValue(`CREATE TABLE user
 (
     id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     city VARCHAR(255),
@@ -57,5 +66,6 @@ CREATE TABLE book
     name VARCHAR(100),
     user_id BIGINT REFERENCES user(id),
     test_alter_reference_id BIGINT REFERENCES user(id)
-);`)
-});
+);`);
+  }
+);

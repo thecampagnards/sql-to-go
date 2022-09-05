@@ -1,4 +1,4 @@
-FROM golang:alpine
+FROM alpine
 
 COPY sql-to-go /usr/bin/sql-to-go
 

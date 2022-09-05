@@ -4,7 +4,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 
@@ -58,10 +57,5 @@ func main() {
 		if err != nil {
 			log.Fatal().Err(err).Msg("failed to create file for table")
 		}
-	}
-
-	log.Info().Msg("format db models")
-	if err := exec.Command("gofmt", "-w", *outputFolder).Run(); err != nil {
-		log.Fatal().Err(err).Msg("failed to format db models")
 	}
 }

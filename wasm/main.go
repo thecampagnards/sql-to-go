@@ -5,8 +5,6 @@ import (
 	"regexp"
 	"syscall/js"
 
-	"mvdan.cc/gofumpt/format"
-
 	"github.com/thecampagnards/sql-to-go/run"
 )
 
@@ -18,7 +16,7 @@ func main() {
 func parse() js.Func {
 	return js.FuncOf(func(this js.Value, args []js.Value) interface{} {
 		if len(args) != 1 {
-			return "Invalid no of arguments passed"
+			return "Invalid parameters"
 		}
 		input := args[0].String()
 		files, err := run.Run(run.RunParams{
@@ -28,23 +26,18 @@ func parse() js.Func {
 			SQL:           input,
 		})
 		if err != nil {
-			fmt.Printf("unable to parse SQL: %s\n", err)
-			return err.Error()
+			return fmt.Sprintf("Unable to convert: %s\n", err)
 		}
 
 		result := ""
 		for _, content := range files {
 			if result != "" {
-				re := regexp.MustCompile(`(?m)((.|\n)*)\)`)
+				// remove package part
+				re := regexp.MustCompile(`(?m)((.|\n)*)\)\n`)
 				content = re.ReplaceAllString(content, "")
 			}
-			result += fmt.Sprintf("%s\n", content)
+			result += fmt.Sprintf("%s", content)
 		}
-		bytes, err := format.Source([]byte(result), format.Options{})
-		if err != nil {
-			fmt.Printf("unable to format code: %s\n", err)
-			return err.Error()
-		}
-		return string(bytes)
+		return result
 	})
 }
