@@ -92,9 +92,8 @@ func Select{{ camelcase $.Name }}s(ctx context.Context, db *bun.DB, {{ camelcase
 
 // Create{{ camelcase $.Name }}
 func Create{{ camelcase $.Name }}(ctx context.Context, db *bun.DB, {{ camelcase $.Name | untitle }} {{ camelcase $.Name }}) (*{{ camelcase $.Name }}, error) {
-	_, err := db.NewSelect().
+	_, err := db.NewInsert().
 		Model(&{{ camelcase $.Name | untitle }}).
-		WherePK().
 		Exec(ctx)
 	if err != nil {
 		return nil, err
